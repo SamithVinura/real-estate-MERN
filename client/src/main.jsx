@@ -5,10 +5,10 @@ import './index.css'
 import { BrowserRouter, createBrowserRouter, Outlet, Route, RouterProvider, Routes } from 'react-router-dom';
 import Home from '../src/pages/Home.jsx'
 import SignIn from '../src/pages/SignIn.jsx'
-import SignOut from '../src/pages/SignOut.jsx'
 import Profile from '../src/pages/Profile.jsx'
 import About from '../src/pages/About.jsx'
 import Header from '../src/components/Header.jsx';
+import Signup from './pages/Signup.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,8 +19,8 @@ const router = createBrowserRouter([
     element: <SignIn/>,
   },
   {
-    path: "/sign-out",
-    element: <SignOut/>,
+    path: "/sign-up",
+    element: <Signup/>,
   },
   {
     path: "/profile",
@@ -40,7 +40,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="/about" element={<About />}/>
       <Route path="/profile" element={<Profile />}/>
       <Route path="/sign-in" element={<SignIn />}/>  
-       <Route path="/sign-out" element={<SignOut />}/>  
+       <Route path="/sign-up" element={<Signup />}/>  
       
     </Routes>
     </BrowserRouter>
