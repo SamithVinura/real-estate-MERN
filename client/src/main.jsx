@@ -16,32 +16,13 @@ import Profile from "../src/pages/Profile.jsx";
 import About from "../src/pages/About.jsx";
 import Header from "../src/components/Header.jsx";
 import Signup from "./pages/Signup.jsx";
-import { store } from "../redux/store.js";
+import { store,  } from "../redux/store.js";
 import { Provider } from "react-redux";
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/sign-in",
-    element: <SignIn />,
-  },
-  {
-    path: "/sign-up",
-    element: <Signup />,
-  },
-  {
-    path: "/profile",
-    element: <Profile />,
-  },
-  {
-    path: "/about",
-    element: <About />,
-  },
-]);
+import { PersistGate } from "redux-persist/integration/react";
+
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
+    <PersistGate loading={null} persistor={persistore}>
     <BrowserRouter>
       <Header />
       <Routes>
@@ -52,5 +33,6 @@ createRoot(document.getElementById("root")).render(
         <Route path="/sign-up" element={<Signup />} />
       </Routes> 
     </BrowserRouter>
+    </PersistGate>
   </Provider>
 );
