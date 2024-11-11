@@ -19,6 +19,7 @@ import Signup from "./pages/Signup.jsx";
 import { store, persistore } from "../redux/store.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import PrivateRouter from "./components/PrivateRouter.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -28,7 +29,9 @@ createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route element={<PrivateRouter/>} >
         <Route path="/profile" element={<Profile />} />
+        </Route>
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<Signup />} />
       </Routes> 
