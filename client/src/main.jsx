@@ -16,7 +16,7 @@ import Profile from "../src/pages/Profile.jsx";
 import About from "../src/pages/About.jsx";
 import Header from "../src/components/Header.jsx";
 import Signup from "./pages/Signup.jsx";
-import { store,  } from "../redux/store.js";
+import { store, persistore } from "../redux/store.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
