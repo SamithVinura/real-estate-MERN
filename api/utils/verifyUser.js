@@ -3,20 +3,14 @@ import jwt from "jsonwebtoken";
 export const verifyToken = (req, res, next) => {
   const token = req.cookies.access_token;
   if (!token) {
-    next(errorHandler("401", "unauthorixed"));
+    next(errorHandler("401", "unauthorized"));
   }
   try {
-    jwt.verify(
-      token,
-      process.env.JWT_SECRET,
-      (err,
-      (user) => {
-        if (err) {
-          next(errorHandler("403", "Forbidden"));
-        }
-        req.user = user;
-        next();
-      })
-    );
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+      if (err) return next(errorHandler(403, "Forbidden"));
+
+      req.user = user;
+      next();
+    });
   } catch (error) {}
 };
