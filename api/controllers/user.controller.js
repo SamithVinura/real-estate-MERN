@@ -1,3 +1,4 @@
+import Listing from "../models/listing.model.js";
 import User from "../models/user.model.js";
 import { errorHandler } from "../utils/error.js";
 
@@ -36,6 +37,18 @@ export const deleteUser = async (req, res, next) => {
     await User.findOneAndDelete(req.params.id);
     res.clearCookie("access_token");
     res.status(200).json("User has been deleted");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getUserListing = async (req, res, next) => {
+  if (req.user.id !== req.params.id) {
+    next(errorHandler("401", "You can only get your own listings!"));
+  }
+  try {
+    const listing = await Listing.find({ userRef: req.params.id });
+    res.status(200).json(listing);
   } catch (error) {
     next(error);
   }
