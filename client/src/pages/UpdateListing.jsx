@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const CreateListing = () => {
-  const { currentUser} = useSelector((state) => state.user);
-  const navigate = useNavigate()
+const UpdateListing = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [files, setFiles] = useState([]);
+  const [dataLoadingError, setDataLoadingError] = useState(null);
   const [formData, setFormData] = useState({
     imageUrls: [],
     name: "",
@@ -20,8 +22,8 @@ const CreateListing = () => {
     parking: false,
     furnished: false,
   });
-  const [error,setError] =useState(false)
-  const [loading,setLoading] = useState(false)
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleImageSubmit = async (e) => {
     e.preventDefault();
@@ -55,33 +57,56 @@ const CreateListing = () => {
     e.preventDefault();
     try {
       //if(formData.imageUrls.length<1){return setError('You must upload atleast one image.')}
-      if(+formData.regularPrice < +formData.discountPrice){return setError('Discount price must be lower than Regular price')}
-      setError(false)
-      setLoading(true)
-      const res = await fetch('/api/listing/create',{
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body:JSON.stringify({...formData,userRef:currentUser._id})
-      })
-      const data = await  res.json()
-      setLoading(false)
-      if(data.success=== false){
-        setError(data.message)
+      if (+formData.regularPrice < +formData.discountPrice) {
+        return setError("Discount price must be lower than Regular price");
       }
-      navigate(`/listing/${data._id}`)
+      setError(false);
+      setLoading(true);
+      const res = await fetch(`/api/listing/update/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...formData, userRef: currentUser._id }),
+      });
+      const data = await res.json();
+      setLoading(false);
+      if (data.success === false) {
+        setError(data.message);
+      }
+      navigate(`/listing/${data._id}`);
     } catch (error) {
-      setError(error.message)
-      setLoading(false)
+      setError(error.message);
+      setLoading(false);
     }
   };
 
+  useEffect(() => {
+    const fetchListing = async () => {
+      try {
+        setDataLoadingError(null);
+        const res = await fetch(`/api/listing/get/${id}`);
+        const data = await res.json();
+
+        if (data.success === false) {
+          setDataLoadingError(data.message);
+          return;
+        }
+        setFormData(data);
+      } catch (error) {
+        setDataLoadingError(error.message);
+      }
+    };
+    fetchListing();
+  }, []);
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">
-        Create a listing
+        Update a listing
       </h1>
+      {dataLoadingError && (
+        <p className="text-red-700 text-sm mb-4">{dataLoadingError}</p>
+      )}
       <form
         className="flex flex-col sm:flex-grow gap-4"
         onSubmit={handleSubmit}
@@ -207,25 +232,29 @@ const CreateListing = () => {
                 />
                 <div className="flex flex-col items-center">
                   <p>Regular Price</p>
-                  {formData.type==="rent"&&<span className="text-xs">{"$/month"}</span>}
+                  {formData.type === "rent" && (
+                    <span className="text-xs">{"$/month"}</span>
+                  )}
                 </div>
               </div>
-              {formData.offer&&<div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  id="discountPrice"
-                  min={"0"}
-                  max={"100000"}
-                  required
-                  className="p-3 border border-gray-300 rounded-lg"
-                  onChange={handleChange}
-                  value={formData.discountPrice}
-                />
-                <div className="flex flex-col items-center">
-                  <p>Discount Price</p>
-                  <span className="text-xs">{"$/month"}</span>
+              {formData.offer && (
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    id="discountPrice"
+                    min={"0"}
+                    max={"100000"}
+                    required
+                    className="p-3 border border-gray-300 rounded-lg"
+                    onChange={handleChange}
+                    value={formData.discountPrice}
+                  />
+                  <div className="flex flex-col items-center">
+                    <p>Discount Price</p>
+                    <span className="text-xs">{"$/month"}</span>
+                  </div>
                 </div>
-              </div>}
+              )}
             </div>
           </div>
         </div>
@@ -251,8 +280,11 @@ const CreateListing = () => {
               Upload
             </button>
           </div>
-          <button className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-85" disabled={loading}>
-            {loading? 'Loading...':'Create Listing'}
+          <button
+            className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-85"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Update Listing"}
           </button>
           {error && <p className="text-red-700 text-sm">{error}</p>}
         </div>
@@ -261,4 +293,4 @@ const CreateListing = () => {
   );
 };
 
-export default CreateListing;
+export default UpdateListing;
