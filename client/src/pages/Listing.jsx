@@ -39,7 +39,7 @@ const Listing = () => {
       )}
       {listing && !loading && !dataLoadingError && (
         <Swiper navigation>
-          {listing.image?.map((url) => (
+          {listing.imageUrls?.map((url) => (
             <SwiperSlide key={url}>
               <div
                 className="h-[550px]"
