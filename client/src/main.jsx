@@ -24,6 +24,7 @@ import CreateListing from "./pages/CreateListing.jsx";
 import UpdateListing from "./pages/UpdateListing.jsx";
 import Listing from "./pages/Listing.jsx";
 import Search from "./pages/Search.jsx";
+import ContactUs from "./pages/ContactUs.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -42,6 +43,7 @@ createRoot(document.getElementById("root")).render(
           </Route>
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<Signup />} />
+          <Route path="/contactus" element={<ContactUs />} />
         </Routes>
       </BrowserRouter>
     </PersistGate>

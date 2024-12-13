@@ -51,6 +51,9 @@ const Header = () => {
           <li className="hidden sm:inline text-slate-700 hover:underline">
             <Link to="/about">About</Link>
           </li>
+          <li className="hidden sm:inline text-slate-700 hover:underline">
+            <Link to="/contactus">Contact Us</Link>
+          </li>
           {currentUser ? (
             <Link to="/profile">
               {" "}

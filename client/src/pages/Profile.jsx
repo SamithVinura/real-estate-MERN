@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -31,6 +32,7 @@ const Profile = () => {
   const [listings, setListings] = useState([]);
   const [listingError, setListingError] = useState(null);
   const [fileUploadError, setFileUploadError] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -120,11 +122,6 @@ const Profile = () => {
     }
   };
 
-  //
-  // allow read;
-  //  allow write:if
-  //request.resource.size < 2 *1024*1024 &&
-  //request.resource.contentType.matches('image/.*')
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
@@ -135,7 +132,6 @@ const Profile = () => {
     const fileName = new Date().getTime() + file.name;
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
-
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -153,10 +149,11 @@ const Profile = () => {
       }
     );
   };
+
+  console.log("lis", listings);
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
-
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           onChange={(e) => setFile(e.target.files[0])}
@@ -206,7 +203,6 @@ const Profile = () => {
           id="password"
           className="border p-3 rounded-lg"
         />
-
         <button
           className="bg-slate-700 text-white rounded-lg p-3 hover:opacity-95 disabled:opacity-85"
           disabled={loading}
