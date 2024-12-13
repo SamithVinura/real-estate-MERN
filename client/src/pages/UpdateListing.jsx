@@ -58,7 +58,6 @@ const UpdateListing = () => {
     }
   };
 
-  console.log("form", formData);
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
       setImageUploadButton("Uploading...");

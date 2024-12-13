@@ -3,15 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 
 const Signup = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   //set form data to state when input change
   const handleChange = (e) => {
-    setError(null)
-    setLoading(false)
+    setError(null);
+    setLoading(false);
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
@@ -37,8 +37,7 @@ const Signup = () => {
         return;
       }
       setLoading(false);
-      navigate('/sign-in')
-      console.log(data);
+      navigate("/sign-in");
     } catch (error) {
       setLoading(false);
       setError(error.message);
@@ -75,7 +74,7 @@ const Signup = () => {
         >
           {loading ? "Loading..." : "Sign up"}
         </button>
-        <OAuth/>
+        <OAuth />
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have an account?</p>
