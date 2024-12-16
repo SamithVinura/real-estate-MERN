@@ -1,17 +1,7 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
 import "./index.css";
-import {
-  BrowserRouter,
-  createBrowserRouter,
-  Outlet,
-  Route,
-  RouterProvider,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../src/pages/Home.jsx";
-import SignIn from "../src/pages/SignIn.jsx";
 import Profile from "../src/pages/Profile.jsx";
 import About from "../src/pages/About.jsx";
 import Header from "../src/components/Header.jsx";
@@ -25,6 +15,7 @@ import UpdateListing from "./pages/UpdateListing.jsx";
 import Listing from "./pages/Listing.jsx";
 import Search from "./pages/Search.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
+import Signin from "../src/pages/SignIn.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -41,7 +32,7 @@ createRoot(document.getElementById("root")).render(
             <Route path="/create-listing" element={<CreateListing />} />
             <Route path="/update-listing/:id" element={<UpdateListing />} />
           </Route>
-          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-in" element={<Signin />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/contactus" element={<ContactUs />} />
         </Routes>
