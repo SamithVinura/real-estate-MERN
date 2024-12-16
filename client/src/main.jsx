@@ -15,7 +15,7 @@ import UpdateListing from "./pages/UpdateListing.jsx";
 import Listing from "./pages/Listing.jsx";
 import Search from "./pages/Search.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
-import Signin from "../src/pages/SignIn.jsx";
+import Signin from "../src/pages/Signin.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
