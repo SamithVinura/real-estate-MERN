@@ -28,6 +28,7 @@ A full-stack MERN web application designed for real estate listings, where users
 
 ## Deployment
 The application is hosted live. Check it out here: [[Live Demo](your-live-demo-link).](https://real-estate-mern-i0we.onrender.com/)
+(This will take some time when the first time loading) 
 
 ### Author
 **Samith Vinura Aberathne** 
